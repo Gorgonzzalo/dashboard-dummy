@@ -55,8 +55,7 @@ wind_df_july = pd.DataFrame(wind_data_july)
 wind_df_july['Outages'] = generate_outages(len(wind_df_july))
 
 # Set page title
-st.set_page_config(page_title='Power Plant Dashboard')
-
+st.set_page_config(page_title='Power Plant Dashboard', layout="wide")
 # Sidebar
 st.sidebar.title('Dashboard Menu')
 selected_power_plant = st.sidebar.selectbox('Select a power plant', ['Solar Power Plant', 'Wind Farm'])
