@@ -10,23 +10,32 @@ data = {
     'Age': [25, 30, 35, 40],
     'Gender': ['Male', 'Female', 'Male', 'Female']
 }
-df = pd.DataFrame(data)
+dfCartuja = pd.DataFrame(data)
+data2 = {
+    'Name': ['A', 'B', 'C', 'D'],
+    'Age': [1, 2, 3, 4],
+    'Gender': ['ON', 'OFF', 'OFF', 'ON']
+}
+dfPicon = pd.DataFrame(data2)
 
 # Sidebar
 st.sidebar.title('Dashboard Menu')
-selected_page = st.sidebar.selectbox('Select a page', ['Home', 'Data'])
+selected_page = st.sidebar.selectbox('Select a Project', ['Home', 'Picón', 'Cartuja'])
 
 # Home page
 if selected_page == 'Home':
-    st.title('Welcome to the Dummy Dashboard!')
+    st.title('Welcome to the ABEI Dummy Dashboard!')
     st.write('This is the home page of the dashboard.')
 
 # Data page
-elif selected_page == 'Data':
-    st.title('Data')
+elif selected_page == 'Picón':
+    st.title('Picón Dashboard')
     st.write('Here is some example data:')
-    st.dataframe(df)
-
+    st.dataframe(dfPicon)
+elif selected_page == 'Cartuja':
+    st.title('Cartuja Dashboard')
+    st.write('Here is some example data:')
+    st.dataframe(dfCartuja)
 # About page
 st.sidebar.title('About')
 st.sidebar.info('This is a dummy dashboard created using Streamlit.')
