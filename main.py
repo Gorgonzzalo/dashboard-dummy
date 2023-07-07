@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Sample data for solar power plant
 solar_data = {
@@ -35,9 +36,13 @@ if selected_page == 'Solar Power Plant':
     st.write('Here is the data for the solar power plant:')
     st.write(solar_df)
 
+    # Convert Power Output column to NumPy array before indexing
+    power_output_array = np.array(solar_df['Power Output (kW)'])
+    indexed_array = power_output_array[:, None]
+
     # Plot power output over time
     plt.figure(figsize=(8, 6))
-    plt.plot(solar_df['Date'], solar_df['Power Output (kW)'], marker='o')
+    plt.plot(solar_df['Date'], indexed_array, marker='o')
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Solar Power Plant - Power Output')
@@ -50,9 +55,13 @@ elif selected_page == 'Wind Farm':
     st.write('Here is the data for the wind farm:')
     st.write(wind_df)
 
+    # Convert Power Output column to NumPy array before indexing
+    power_output_array = np.array(wind_df['Power Output (kW)'])
+    indexed_array = power_output_array[:, None]
+
     # Plot power output over time
     plt.figure(figsize=(8, 6))
-    plt.plot(wind_df['Date'], wind_df['Power Output (kW)'], marker='o')
+    plt.plot(wind_df['Date'], indexed_array, marker='o')
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Wind Farm - Power Output')
@@ -62,4 +71,3 @@ elif selected_page == 'Wind Farm':
 # About page
 st.sidebar.title('About')
 st.sidebar.info('This is a dummy power plant dashboard.')
-
