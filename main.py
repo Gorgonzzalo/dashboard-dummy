@@ -100,7 +100,6 @@ elif selected_month == 'July':
     # Plot power output over time
     plt.figure(figsize=(8, 6))
     plt.plot(wind_df_july['Date'], wind_df_july['Power Output (kW)'], marker='o')
-```python
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Wind Farm - Power Output (July)')
