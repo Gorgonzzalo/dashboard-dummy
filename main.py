@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Sample data for solar power plant
 solar_data = {
@@ -36,17 +35,23 @@ if selected_page == 'Solar Power Plant':
     st.write('Here is the data for the solar power plant:')
     st.write(solar_df)
 
-    # Convert Power Output column to NumPy array before indexing
-    indexed_array = np.array(solar_df['Power Output (kW)'])[:, None]
-    #indexed_array = power_output_array[:, None]
-
     # Plot power output over time
     plt.figure(figsize=(8, 6))
-    plt.plot(solar_df['Date'], indexed_array, marker='o')
+    plt.plot(solar_df['Date'], solar_df['Power Output (kW)'], marker='o')
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Solar Power Plant - Power Output')
     plt.xticks(rotation=45)
+    st.pyplot(plt)
+
+    # Pie chart of power output distribution
+    plt.figure(figsize=(6, 6))
+    labels = ['Low', 'Medium', 'High']
+    bins = [0, 400, 700, 1000]
+    power_output_bins = pd.cut(solar_df['Power Output (kW)'], bins=bins, labels=labels)
+    power_output_counts = power_output_bins.value_counts()
+    plt.pie(power_output_counts, labels=labels, autopct='%1.1f%%', startangle=90)
+    plt.title('Power Output Distribution')
     st.pyplot(plt)
 
 # Wind Farm page
@@ -55,17 +60,23 @@ elif selected_page == 'Wind Farm':
     st.write('Here is the data for the wind farm:')
     st.write(wind_df)
 
-    # Convert Power Output column to NumPy array before indexing
-    power_output_array = np.array(wind_df['Power Output (kW)'])
-    indexed_array = power_output_array[:, None]
-
     # Plot power output over time
     plt.figure(figsize=(8, 6))
-    plt.plot(wind_df['Date'], indexed_array, marker='o')
+    plt.plot(wind_df['Date'], wind_df['Power Output (kW)'], marker='o')
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Wind Farm - Power Output')
     plt.xticks(rotation=45)
+    st.pyplot(plt)
+
+    # Pie chart of power output distribution
+    plt.figure(figsize=(6, 6))
+    labels = ['Low', 'Medium', 'High']
+    bins = [0, 800, 950, 1200]
+    power_output_bins = pd.cut(wind_df['Power Output (kW)'], bins=bins, labels=labels)
+    power_output_counts = power_output_bins.value_counts()
+    plt.pie(power_output_counts, labels=labels, autopct='%1.1f%%', startangle=90)
+    plt.title('Power Output Distribution')
     st.pyplot(plt)
 
 # About page
