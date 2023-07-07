@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import random
 
 # Sample data for solar power plant in June
 solar_data_june = {
@@ -34,12 +36,23 @@ wind_data_july = {
     'Temperature (°C)': [25, 23, 24, 26, 27]
 }
 
+# Function to generate random ON/OFF values for outages
+def generate_outages(days):
+    states = ['ON', 'OFF']
+    return [random.choice(states) for _ in range(days)]
+
 # Create dataframes for solar power plant and wind farm in June and July
 solar_df_june = pd.DataFrame(solar_data_june)
+solar_df_june['Outages'] = generate_outages(len(solar_df_june))
+
 wind_df_june = pd.DataFrame(wind_data_june)
+wind_df_june['Outages'] = generate_outages(len(wind_df_june))
 
 solar_df_july = pd.DataFrame(solar_data_july)
+solar_df_july['Outages'] = generate_outages(len(solar_df_july))
+
 wind_df_july = pd.DataFrame(wind_data_july)
+wind_df_july['Outages'] = generate_outages(len(wind_df_july))
 
 # Set page title
 st.set_page_config(page_title='Power Plant Dashboard')
@@ -67,6 +80,14 @@ if selected_power_plant == 'Solar Power Plant':
         plt.xticks(rotation=45)
         st.pyplot(plt)
 
+        # Pie chart of outage states
+        outage_counts = solar_df_june['Outages'].value_counts()
+        explode = (0.1, 0.1)
+        plt.figure(figsize=(6, 6))
+        plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+        plt.title('Solar Power Plant - Outage States (June)')
+        st.pyplot(plt)
+
     elif selected_month_solar == 'July':
         st.write('Here is the data for the solar power plant in July:')
 
@@ -79,6 +100,14 @@ if selected_power_plant == 'Solar Power Plant':
         plt.xticks(rotation=45)
         st.pyplot(plt)
 
+        # Pie chart of outage states
+        outage_counts = solar_df_july['Outages'].value_counts()
+        explode = (0.1, 0.1)
+        plt.figure(figsize=(6, 6))
+        plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+        plt.title('Solar Power Plant - Outage States (July)')
+        st.pyplot(plt)
+
 # Wind Farm page
 elif selected_power_plant == 'Wind Farm':
     st.title('Wind Farm Data')
@@ -87,7 +116,6 @@ elif selected_power_plant == 'Wind Farm':
     selected_month_wind = st.selectbox('Select a month', ['June', 'July'])
 
     if selected_month_wind == 'June':
-        st.write('Here is the data for the wind farm')
         st.write('Here is the data for the wind farm in June:')
 
         # Plot power output over time
@@ -97,6 +125,15 @@ elif selected_power_plant == 'Wind Farm':
         plt.ylabel('Power Output (kW)')
         plt.title('Wind Farm - Power Output (June)')
         plt.xticks(rotation=45)
+        st.pyplot(plt)
+
+        # Pie chart of outage states
+        outage_counts = wind_df_june['Outages'].value_counts()
+        explode = (0.1, 0.1)
+
+        plt.figure(figsize=(6, 6))
+        plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+        plt.title('Wind Farm - Outage States (June)')
         st.pyplot(plt)
 
     elif selected_month_wind == 'July':
@@ -109,6 +146,14 @@ elif selected_power_plant == 'Wind Farm':
         plt.ylabel('Power Output (kW)')
         plt.title('Wind Farm - Power Output (July)')
         plt.xticks(rotation=45)
+        st.pyplot(plt)
+
+        # Pie chart of outage states
+        outage_counts = wind_df_july['Outages'].value_counts()
+        explode = (0.1, 0.1)
+        plt.figure(figsize=(6, 6))
+        plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+        plt.title('Wind Farm - Outage States (July)')
         st.pyplot(plt)
 
 # About page
