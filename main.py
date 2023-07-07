@@ -57,7 +57,6 @@ if selected_power_plant == 'Solar Power Plant':
 
     if selected_month_solar == 'June':
         st.write('Here is the data for the solar power plant in June:')
-        st.write(solar_df_june)
 
         # Plot power output over time
         plt.figure(figsize=(8, 6))
@@ -70,7 +69,6 @@ if selected_power_plant == 'Solar Power Plant':
 
     elif selected_month_solar == 'July':
         st.write('Here is the data for the solar power plant in July:')
-        st.write(solar_df_july)
 
         # Plot power output over time
         plt.figure(figsize=(8, 6))
@@ -89,9 +87,8 @@ elif selected_power_plant == 'Wind Farm':
     selected_month_wind = st.selectbox('Select a month', ['June', 'July'])
 
     if selected_month_wind == 'June':
-        st.write('Here is the data for the wind farm```python
+        st.write('Here is the data for the wind farm')
         st.write('Here is the data for the wind farm in June:')
-        st.write(wind_df_june)
 
         # Plot power output over time
         plt.figure(figsize=(8, 6))
@@ -104,7 +101,6 @@ elif selected_power_plant == 'Wind Farm':
 
     elif selected_month_wind == 'July':
         st.write('Here is the data for the wind farm in July:')
-        st.write(wind_df_july)
 
         # Plot power output over time
         plt.figure(figsize=(8, 6))
