@@ -25,7 +25,7 @@ if selected_page == 'Home':
 elif selected_page == 'Data':
     st.title('Data')
     st.write('Here is some example data:')
-    st.write(df)
+    st.dataframe(df)
 
 # About page
 st.sidebar.title('About')
