@@ -1,42 +1,65 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data for solar power plant
+solar_data = {
+    'Date': ['2023-07-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05'],
+    'Power Output (kW)': [500, 520, 510, 480, 490],
+    'Temperature (°C)': [30, 32, 29, 31, 28],
+    'Humidity (%)': [60, 55, 58, 62, 59]
+}
+
+# Sample data for wind farm
+wind_data = {
+    'Date': ['2023-07-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05'],
+    'Power Output (kW)': [1000, 980, 1020, 990, 1010],
+    'Wind Speed (m/s)': [5.8, 6.2, 6.5, 5.5, 6.0],
+    'Temperature (°C)': [25, 23, 24, 26, 27]
+}
+
+# Create dataframes for solar power plant and wind farm
+solar_df = pd.DataFrame(solar_data)
+wind_df = pd.DataFrame(wind_data)
 
 # Set page title
-st.set_page_config(page_title='Dummy Dashboard')
-
-# Create some example data
-data = {
-    'Name': ['John', 'Jane', 'Bob', 'Alice'],
-    'Age': [25, 30, 35, 40],
-    'Gender': ['Male', 'Female', 'Male', 'Female']
-}
-dfCartuja = pd.DataFrame(data)
-data2 = {
-    'Name': ['A', 'B', 'C', 'D'],
-    'Age': [1, 2, 3, 4],
-    'Gender': ['ON', 'OFF', 'OFF', 'ON']
-}
-dfPicon = pd.DataFrame(data2)
+st.set_page_config(page_title='Power Plant Dashboard')
 
 # Sidebar
 st.sidebar.title('Dashboard Menu')
-selected_page = st.sidebar.selectbox('Select a Project', ['Home', 'Picón', 'Cartuja'])
+selected_page = st.sidebar.selectbox('Select a power plant', ['Solar Power Plant', 'Wind Farm'])
 
-# Home page
-if selected_page == 'Home':
-    st.title('Welcome to the ABEI Dummy Dashboard!')
-    st.write('This is the home page of the dashboard.')
+# Solar Power Plant page
+if selected_page == 'Solar Power Plant':
+    st.title('Solar Power Plant Data')
+    st.write('Here is the data for the solar power plant:')
+    st.write(solar_df)
 
-# Data page
-elif selected_page == 'Picón':
-    st.title('Picón Dashboard')
-    st.write('Here is some example data:')
-    st.dataframe(dfPicon)
-elif selected_page == 'Cartuja':
-    st.title('Cartuja Dashboard')
-    st.write('Here is some example data:')
-    st.dataframe(dfCartuja)
+    # Plot power output over time
+    plt.figure(figsize=(8, 6))
+    plt.plot(solar_df['Date'], solar_df['Power Output (kW)'], marker='o')
+    plt.xlabel('Date')
+    plt.ylabel('Power Output (kW)')
+    plt.title('Solar Power Plant - Power Output')
+    plt.xticks(rotation=45)
+    st.pyplot(plt)
+
+# Wind Farm page
+elif selected_page == 'Wind Farm':
+    st.title('Wind Farm Data')
+    st.write('Here is the data for the wind farm:')
+    st.write(wind_df)
+
+    # Plot power output over time
+    plt.figure(figsize=(8, 6))
+    plt.plot(wind_df['Date'], wind_df['Power Output (kW)'], marker='o')
+    plt.xlabel('Date')
+    plt.ylabel('Power Output (kW)')
+    plt.title('Wind Farm - Power Output')
+    plt.xticks(rotation=45)
+    st.pyplot(plt)
+
 # About page
 st.sidebar.title('About')
-st.sidebar.info('This is a dummy dashboard created using Streamlit.')
+st.sidebar.info('This is a dummy power plant dashboard.')
 
