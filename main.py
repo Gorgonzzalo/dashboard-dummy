@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import random
 
 # Sample data for solar power plant
 solar_data = {
@@ -18,9 +20,17 @@ wind_data = {
     'Temperature (°C)': [25, 23, 24, 26, 27]
 }
 
+# Function to generate random ON/OFF values for outages
+def generate_outages(days):
+    states = ['ON', 'OFF']
+    return [random.choice(states) for _ in range(days)]
+
 # Create dataframes for solar power plant and wind farm
 solar_df = pd.DataFrame(solar_data)
+solar_df['Outages'] = generate_outages(len(solar_df))
+
 wind_df = pd.DataFrame(wind_data)
+wind_df['Outages'] = generate_outages(len(wind_df))
 
 # Set page title
 st.set_page_config(page_title='Power Plant Dashboard')
@@ -44,14 +54,12 @@ if selected_page == 'Solar Power Plant':
     plt.xticks(rotation=45)
     st.pyplot(plt)
 
-    # Pie chart of power output distribution
+    # Pie chart of outage states
+    outage_counts = solar_df['Outages'].value_counts()
+    explode = (0.1, 0.1)
     plt.figure(figsize=(6, 6))
-    labels = ['Low', 'Medium', 'High']
-    bins = [0, 400, 700, 1000]
-    power_output_bins = pd.cut(solar_df['Power Output (kW)'], bins=bins, labels=labels)
-    power_output_counts = power_output_bins.value_counts()
-    plt.pie(power_output_counts, labels=labels, autopct='%1.1f%%', startangle=90)
-    plt.title('Power Output Distribution')
+    plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+    plt.title('Solar Power Plant - Outage States')
     st.pyplot(plt)
 
 # Wind Farm page
@@ -69,14 +77,12 @@ elif selected_page == 'Wind Farm':
     plt.xticks(rotation=45)
     st.pyplot(plt)
 
-    # Pie chart of power output distribution
+    # Pie chart of outage states
+    outage_counts = wind_df['Outages'].value_counts()
+    explode = (0.1, 0.1)
     plt.figure(figsize=(6, 6))
-    labels = ['Low', 'Medium', 'High']
-    bins = [0, 800, 950, 1200]
-    power_output_bins = pd.cut(wind_df['Power Output (kW)'], bins=bins, labels=labels)
-    power_output_counts = power_output_bins.value_counts()
-    plt.pie(power_output_counts, labels=labels, autopct='%1.1f%%', startangle=90)
-    plt.title('Power Output Distribution')
+    plt.pie(outage_counts, labels=outage_counts.index, autopct='%1.1f%%', startangle=90, explode=explode)
+    plt.title('Wind Farm - Outage States')
     st.pyplot(plt)
 
 # About page
