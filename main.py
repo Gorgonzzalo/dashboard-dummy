@@ -38,11 +38,11 @@ if selected_page == 'Solar Power Plant':
 
     # Convert Power Output column to NumPy array before indexing
     power_output_array = np.array(solar_df['Power Output (kW)'])
-    indexed_array = power_output_array[:, None]
+    #indexed_array = power_output_array[:, None]
 
     # Plot power output over time
     plt.figure(figsize=(8, 6))
-    plt.plot(solar_df['Date'], indexed_array, marker='o')
+    plt.plot(solar_df['Date'], power_output_array, marker='o')
     plt.xlabel('Date')
     plt.ylabel('Power Output (kW)')
     plt.title('Solar Power Plant - Power Output')
