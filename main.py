@@ -134,7 +134,7 @@ elif selected_power_plant == 'Wind Farm':
         # Power output plot
         with col1:
             plt.figure(figsize=(8, 6))
-            plt.plot(wind_df_june')
+            plt.plot(wind_df_june)
             ['Date'], wind_df_june['Power Output (kW)'], marker='o')
             plt.xlabel('Date')
             plt.ylabel('Power Output (kW)')
